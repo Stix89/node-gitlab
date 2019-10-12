@@ -29,6 +29,6 @@ describe('Projects.create', () => {
       token: '123213',
     });
 
-    expect(Projects.create).toHaveBeenCalledWith({ name: "Test CLI Project" });
+    expect(Projects.create).toHaveBeenCalledWith({ name: 'Test CLI Project' });
   });
 });
