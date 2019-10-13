@@ -1,8 +1,8 @@
-import { Projects } from '../../../dist';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { Projects } from '../../../src/core';
 
-const run = promisify(exec);
+const runCmd = promisify(exec);
 
 jest.mock('../../../src/core/infrastructure/KyRequester', () => ({
   get: jest.fn(() => {
@@ -18,13 +18,15 @@ jest.mock('../../../src/core/infrastructure/KyRequester', () => ({
   }),
 }));
 
+jest.mock('../../../src/core/services/Projects');
+
 describe('Projects.create', () => {
   it('should create a valid project', async () => {
-    run(
+    runCmd(
       `gitlab projects create --gl-host https://test.com --gl-token 123213 --name "Test CLI Project" `,
     );
 
-    expect(Projects.constructor).toHaveBeenCalledWith({
+    expect(Projects).toHaveBeenCalledWith({
       host: 'https://test.com',
       token: '123213',
     });

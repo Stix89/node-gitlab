@@ -29,6 +29,7 @@ jobs:
       name: Unit Test Latest
       node_js: node
       script:
+        - npm link
         - npm run test:unit -- --coverage
       after_success:
         - npm run coverage
