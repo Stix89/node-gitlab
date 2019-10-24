@@ -20,6 +20,12 @@ class Pipelines extends BaseService {
     return RequestHelper.post(this, `projects/${pId}/pipeline`, { ref, ...options });
   }
 
+  delete(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
+    const pId = encodeURIComponent(projectId);
+
+    return RequestHelper.del(this, `projects/${pId}/pipelines/${pipelineId}`, options);
+  }
+
   show(projectId: ProjectId, pipelineId: PipelineId, options?: Sudo) {
     const pId = encodeURIComponent(projectId);
 
@@ -42,6 +48,12 @@ class Pipelines extends BaseService {
     const pId = encodeURIComponent(projectId);
 
     return RequestHelper.get(this, `projects/${pId}/pipelines/${pipelineId}/jobs`, options);
+  }
+
+  allVariables(projectId: ProjectId, pipelineId: PipelineId, options?: PaginatedRequestOptions) {
+    const [pId, pipeId] = [projectId, pipelineId].map(encodeURIComponent);
+
+    return RequestHelper.get(this, `projects/${pId}/pipelines/${pipeId}/variables`, options);
   }
 }
 
